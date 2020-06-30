@@ -16993,6 +16993,29 @@ body {
   font-family: "Didact Gothic", sans-serif;
 }
 
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+h1.title-h1,
+h2.title-h1 {
+  font-size: 25px;
+  color: white;
+  padding: 10px;
+  background: #EB6864;
+  width: 70%;
+  border-radius: 30px;
+}
+
+#app {
+  background-image: url("https://images.unsplash.com/photo-1575250686903-c2f5edb52830?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
 .navbar-brand {
   font-family: "Fredoka One", sans-serif;
   font-size: 2rem;
@@ -17009,5 +17032,140 @@ body {
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+}
+
+.actions-recipe a {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+.actions-recipe a.btn-danger {
+  background-color: red;
+}
+
+.actions-recipe a.btn-danger i {
+  color: white;
+  justify-content: center;
+}
+
+.actions-recipe a.btn-success {
+  background-color: #04b158;
+}
+
+.actions-recipe a.btn-success i {
+  color: white;
+  justify-content: center;
+}
+
+.actions-recipe a.btn-info {
+  background-color: #008efd;
+}
+
+.actions-recipe a.btn-info i {
+  color: white;
+}
+
+.table {
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.75);
+}
+
+.table tbody tr {
+  color: black;
+  background: white;
+}
+
+.table tbody tr:nth-child(2n) {
+  background: #d1d1d0;
+}
+
+.toastify {
+  margin-top: 80px;
+}
+
+trix-editor {
+  min-height: 400px;
+}
+
+trix-editor.is-invalid-trix {
+  border-color: red;
+}
+
+.items-drop {
+  left: -30px !important;
+}
+
+.items-drop button {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+.items-drop button.btn-danger {
+  background-color: red;
+}
+
+.items-drop button.btn-danger i {
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.items-drop button.btn-success {
+  background-color: #04b158;
+}
+
+.items-drop button.btn-success i {
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.items-drop button.btn-info {
+  background-color: #008efd;
+}
+
+.items-drop button.btn-info i {
+  color: white;
+}
+
+.opacity {
+  filter: alpha(opacity=60);
+  /* IE < 9.0 */
+  background: rgba(243, 239, 239, 0.75);
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.opacity span {
+  font-size: 20px;
+}
+
+.opacity span.span-content {
+  font-size: 17px;
+}
+
+.opacity .image-recipe img {
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+.ingredients__content,
+.making__content {
+  border: 2px solid #EB6864;
+  padding: 20px;
 }
 

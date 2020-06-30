@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Receta;
+use App\CategoriaReceta;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Intervention\Image\Facades\Image;
 
 class RecetaController extends Controller
 {
@@ -13,7 +19,7 @@ class RecetaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'show']);
     }
 
     /**
@@ -23,7 +29,10 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        return view('recetas.index');
+
+        $recipes = Auth::user()->recipes;
+
+        return view('recetas.index', compact('recipes'));
     }
 
     /**
@@ -33,7 +42,8 @@ class RecetaController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categoria_receta')->get();
+
+        $categories = CategoriaReceta::all();
 
         return view('recetas.create', compact('categories'));
     }
@@ -47,14 +57,36 @@ class RecetaController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'title' => 'required|min:6'
+            'title' => 'required|min:6',
+            'category_id' => 'required',
+            'making' => 'required',
+            'ingredients' => 'required',
+            'image' => 'required|image',
         ]);
 
-        DB::table('recetas')->insert([
-            'title' => $data['title']
+        $ruta_image = $request['image']->store('upload-recetas', 'public');
+
+        $img = Image::make(public_path("storage/{$ruta_image}"))->fit(1000, 550);
+        $img->save();
+
+        // DB::table('recetas')->insert([
+        //     'title' => $data['title'],
+        //     'category_id' => $data['category_id'],
+        //     'making' => $data['making'],
+        //     'ingredients' => $data['ingredients'],
+        //     'user_id' => Auth::user()->id,
+        //     'image' => $ruta_image,
+        // ]);
+
+        Auth::user()->recipes()->create([
+            'title' => $data['title'],
+            'category_id' => $data['category_id'],
+            'making' => $data['making'],
+            'ingredients' => $data['ingredients'],
+            'image' => $ruta_image,
         ]);
 
-        return redirect()->action('RecetaController@index');
+        return redirect()->action('RecetaController@index')->with('ok', 'true');
     }
 
     /**
@@ -65,7 +97,12 @@ class RecetaController extends Controller
      */
     public function show($id)
     {
-        //
+
+        // return Excel::download(new UsersExport, 'users.xlsx');
+
+        $recipe = Receta::findOrFail($id);
+
+        return view('recetas.show', compact('recipe'));
     }
 
     /**
@@ -76,7 +113,10 @@ class RecetaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = Receta::findOrFail($id);
+        $categories = CategoriaReceta::all();
+
+        return view('recetas.edit', compact('recipe', 'categories'));
     }
 
     /**
@@ -88,7 +128,35 @@ class RecetaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $recipe = Receta::findOrFail($id);
+
+        // Revisar Policy
+
+        $this->authorize('update', $recipe);
+
+        $data = request()->validate([
+            'title' => 'required|min:6',
+            'category_id' => 'required',
+            'making' => 'required',
+            'ingredients' => 'required',
+            'image' => 'image',
+        ]);
+
+        $recipe->title = $data['title'];
+        $recipe->making = $data['making'];
+        $recipe->ingredients = $data['ingredients'];
+        $recipe->category_id = $data['category_id'];
+
+        if (request('image')) {
+            $ruta_image = $request['image']->store('upload-recetas', 'public');
+            $img = Image::make(public_path("storage/{$ruta_image}"))->fit(1000, 550);
+            $img->save();
+            $recipe->image = $ruta_image;
+        }
+
+        $recipe->save();
+
+        return redirect()->action('RecetaController@index')->with('ok-update', 'true');
     }
 
     /**
@@ -99,6 +167,8 @@ class RecetaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recipe = Receta::findOrFail($id);
+        $this->authorize('delete', $recipe);
+        $recipe->delete();
     }
 }

@@ -15,9 +15,19 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    {{-- Scroll Reveal AOS --}}
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    {{-- Toastify --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    {{-- Nueva seccion --}}
+    @yield('styles')
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -86,8 +96,12 @@
             </div>
             
         </div>
-        {{-- <script src="https://unpkg.com/scrollreveal"></script>
-        @stack('scripts') --}}
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script>
+            AOS.init();
+        </script>
+        @stack('scripts')
     </body>
     </html>
     

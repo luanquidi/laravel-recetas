@@ -19,11 +19,11 @@
                     class="text-center mb-5 title-h1"  
                     data-aos="fade-down"
                 >
-                    Crear Receta
+                    Editar Receta
                 </h1>
             </div>
-        <form action="{{ route('receta.store') }}" method="POST" class="form-create bg-white" enctype="multipart/form-data" novalidate>
-            @csrf
+        <form action="{{ route('receta.update', $recipe) }}" method="POST" class="form-create bg-white" enctype="multipart/form-data" novalidate>
+            @csrf @method('PUT')
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col">
@@ -34,7 +34,7 @@
                                 id="title" 
                                 placeholder="Titulo Receta" 
                                 class="form-control @error('title') is-invalid @enderror"
-                                value="{{ old('title') }}"
+                                value="{{ old('title') ? old('title') : $recipe->title  }}"
                             />
                             @error('title')
                                 <span class="invalid-feedback d-block" role="alert">
@@ -59,7 +59,7 @@
                                   @foreach ($categories as $category)
                                     <option 
                                         value="{{ $category->id }}" 
-                                        {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                        {{ old('category_id') ? (old('category_id')  == $category->id ? 'selected' : '') : ($recipe->category_id == $category->id ? 'selected' : '')}}
                                     >
                                         {{ $category->name }}
                                     </option>
@@ -84,7 +84,7 @@
                         type="hidden" 
                         id="making" 
                         name="making" 
-                        value="{{ old('making') }}"
+                        value="{{ old('making') ? old('making') : $recipe->making  }}"
                        >
                       <trix-editor input="making" class="@error('making') is-invalid-trix @enderror"></trix-editor>
                       @error('making')
@@ -99,7 +99,7 @@
                       type="hidden" 
                       id="ingredients" 
                       name="ingredients" 
-                      value="{{ old('ingredients') }}"
+                      value="{{ old('ingredients') ? old('ingredients') : $recipe->ingredients  }}"
                      >
                     <trix-editor input="ingredients" class="@error('ingredients') is-invalid-trix @enderror"></trix-editor>
                     @error('ingredients')
@@ -123,11 +123,19 @@
                         </span>
                     @enderror
                 </div>
+
+                <div class="d-flex justify-content-center my-4">
+                    <div>
+                        <p class="text-center">Imagen actual:</p>
+                        <img src="/storage/{{ $recipe->image }}" alt="" width="300px">
+                    </div>
+                </div>
+
                 <div class="form-group text-center">
                     <input 
                         type="submit" 
                         class="btn btn-primary"
-                        value="Agregar Receta"
+                        value="Editar Receta"
                     />
                 </div>
             </form>
