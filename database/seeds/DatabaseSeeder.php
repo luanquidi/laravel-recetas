@@ -1,5 +1,6 @@
 <?php
 
+use App\Perfil;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CategoriasSeeder::class);
         $this->call(UsersSeeder::class);
+        $this->call(PerfilSeeder::class);
         // $this->call(UserSeeder::class);
     }
 }

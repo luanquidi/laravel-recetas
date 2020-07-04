@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('buttons')
-    <a href="{{ route('receta.create') }}" class="btn btn-primary mr-2" data-aos="fades-up-left">Crear Receta</a>
+    @include('ui.navigation')
 @endsection
 
 
@@ -22,19 +22,19 @@
 
             <tbody class="bg-dark text-light" id="tbody">
                 
-                @foreach ($recipes as $recipe)
+                @foreach ($recipes as $recetum)
                     <tr>
-                        <td class="text-center">{{ $recipe->title }}</td>
-                        <td class="text-center">{{ $recipe->category->name }}</td>
+                        <td class="text-center">{{ $recetum->title }}</td>
+                        <td class="text-center">{{ $recetum->category->name }}</td>
                         <td>
                             <div class="text-center actions-recipe">
-                                <a class="btn btn-info" href="/receta/{{ $recipe->id }}/edit">
+                                <a class="btn btn-info" href="{{ route('receta.edit', $recetum) }}">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
-                                <a class="btn btn-danger" onclick="confimrDelete(event, {{$recipe->id}} )" >
+                                <a class="btn btn-danger" onclick="confimrDelete(event, {{$recetum->id}} )" >
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
-                                <a class="btn btn-success" href="/receta/{{ $recipe->id }}">
+                                <a class="btn btn-success" href="/receta/{{ $recetum->id }}">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             </div> 
@@ -45,7 +45,13 @@
             </tbody>
             
         </table>
+        {{ $recipes->links() }}
+
+        @include('recetas.likes')
+
     </div>
+
+
     @push('scripts')
         <script>
             const recipes = [
@@ -74,12 +80,18 @@
                 }).showToast();
             }
 
-            if({{ session('ok') === 'true' ? 'true' :  'false' }}){
-               showAlert('success', 'Receta se creo correctamente.');
-            }
-
-            if({{ session('ok-update') === 'true' ? 'true' :  'false' }}){
-               showAlert('success', 'Receta se actualizó correctamente.');
+            if({{ session('ok') ? 'true' :  'false' }}){
+                switch ('{{ session('ok') }}') {
+                    case 'true:update:profile':
+                        showAlert('success', 'El perfil se actualizó correctamente.');
+                        break;
+                    case 'true:update:recipe':
+                        showAlert('success', 'La receta se actualizó correctamente.');
+                        break;
+                    default:
+                        break;
+                }
+               
             }
 
             const showActionsMovil = () => {

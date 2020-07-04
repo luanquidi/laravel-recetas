@@ -17010,6 +17010,7 @@ h2.title-h1 {
 
 #app {
   background-image: url("https://images.unsplash.com/photo-1575250686903-c2f5edb52830?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+  background-attachment: fixed !important;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -17167,5 +17168,149 @@ trix-editor.is-invalid-trix {
 .making__content {
   border: 2px solid #EB6864;
   padding: 20px;
+}
+
+input#image {
+  height: calc(1.6em + 0.75rem + 8px) !important;
+}
+
+.profile__content {
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+.profile__biography {
+  margin-top: 20px;
+  text-align: justify;
+}
+
+.profile__image {
+  display: flex;
+  align-items: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.recipes__empty {
+  background: #000;
+}
+
+.recipes__content__item {
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+.like {
+  background: #fff !important;
+}
+
+.like:hover {
+  border: 1px solid #EB6864;
+}
+
+.like__icon {
+  width: 20px;
+  color: #EB6864;
+}
+
+.home {
+  background: #fff;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.home h2 {
+  color: #EB6864;
+}
+
+.hero-categorias {
+  background-image: linear-gradient(to bottom, rgba(70, 70, 70, 0.4), rgba(53, 53, 53, 0.571)), url("https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1231&q=80");
+  background-attachment: fixed;
+  height: 20rem;
+  background-size: cover;
+  background-position: top center;
+}
+
+.hero-categorias .texto-buscar p {
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.like-btn,
+.clap-btn {
+  display: inline-block;
+  Cursor: pointer;
+  width: 80px;
+  height: 80px;
+}
+
+.like-btn {
+  background: url("https://i.ibb.co/vw78mf3/heart.png") no-repeat 0% 50%;
+  background-size: 2900%;
+}
+
+.clap-btn {
+  background: url("https://i.ibb.co/GVsbrFF/claps.png") no-repeat 0% 50%;
+  background-size: 900%;
+}
+
+.like-active,
+.clap-active {
+  -webkit-animation-name: animate;
+          animation-name: animate;
+  -webkit-animation-duration: 0.8s;
+          animation-duration: 0.8s;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.like-active {
+  -webkit-animation-timing-function: steps(28);
+          animation-timing-function: steps(28);
+}
+
+.clap-active {
+  -webkit-animation-timing-function: steps(8);
+          animation-timing-function: steps(8);
+}
+
+@-webkit-keyframes animate {
+  0% {
+    background-position: left;
+  }
+
+  50% {
+    background-position: right;
+  }
+
+  100% {
+    background-position: right;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position: left;
+  }
+
+  50% {
+    background-position: right;
+  }
+
+  100% {
+    background-position: right;
+  }
 }
 

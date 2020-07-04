@@ -20,6 +20,12 @@ class RecetaPolicy
         //
     }
 
+    public function view(User $user, Receta $recetum)
+    {
+        // Revisa si el usuario es el mismo que creo receta
+        return $user->id === $recetum->user_id;
+    }
+
     public function update(User $user, Receta $recipe)
     {
         // Revisa si el usuario es el mismo que creo receta

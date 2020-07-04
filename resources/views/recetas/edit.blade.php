@@ -24,8 +24,10 @@
             </div>
         <form action="{{ route('receta.update', $recipe) }}" method="POST" class="form-create bg-white" enctype="multipart/form-data" novalidate>
             @csrf @method('PUT')
+
                 <div class="form-group">
                     <div class="form-row">
+
                         <div class="col">
                             <label for="title">Titulo Receta</label>
                             <input 
@@ -42,6 +44,8 @@
                                 </span>
                             @enderror
                         </div>
+
+
                         <div class="col">
                             <label>Categoría</label>
                             <div class="input-group mb-3">
@@ -72,27 +76,27 @@
                                 @enderror
                               </div>
                         </div>
+                        
                     </div>
-                    
                 </div>
 
                 
                 
-                  <div class="form-group">
-                      <label for="making">Preparación</label>
-                      <input 
+                <div class="form-group">
+                    <label for="making">Preparación</label>
+                    <input 
                         type="hidden" 
                         id="making" 
                         name="making" 
                         value="{{ old('making') ? old('making') : $recipe->making  }}"
-                       >
-                      <trix-editor input="making" class="@error('making') is-invalid-trix @enderror"></trix-editor>
-                      @error('making')
-                      <span class="invalid-feedback d-block" role="alert">
-                          {{ $message }}
-                      </span>
-                  @enderror
-                  </div>
+                    >
+                    <trix-editor input="making" class="@error('making') is-invalid-trix @enderror"></trix-editor>
+                    @error('making')
+                        <span class="invalid-feedback d-block" role="alert">
+                            {{ $message }}
+                        </span>
+                    @enderror
+                </div>
                   <div class="form-group">
                     <label for="ingredients">Ingredientes</label>
                     <input 
@@ -164,6 +168,16 @@
                     onClick: function(){} // Callback after click
                 }).showToast();
             }
+
+            switch (key) {
+                case value:
+                    
+                    break;
+            
+                default:
+                    break;
+            }
+
             if({{ $errors->any() ? 'true' :  'false' }}){
                showAlert('error', 'Todos los campos son obligatorios.');
             }

@@ -25,6 +25,8 @@
     {{-- Nueva seccion --}}
     @yield('styles')
     
+
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -81,7 +83,11 @@
                     </div>
                 </div>
             </nav>
-            
+
+            @include('ui.nav-categorias')
+
+            @yield('hero')
+
             <div class="container">
                 
                 <div class="row">
@@ -100,6 +106,22 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <script>
             AOS.init();
+        </script>
+        <script>
+                // document.addEventListener('DOMContentLoaded', function(){
+                //     const path = window.location.pathname;
+                // const app = document.getElementById('app');
+                // console.log(app);
+                // if(path.length == 1){
+                //     $("#app").css("background", 'red url("")');
+                //     $("#app").css("background-image", '');
+                // }else {
+                //     app.style.backgroundColor = "";
+                //     app.style.backgroundImage = "url('https://images.unsplash.com/photo-1575250686903-c2f5edb52830?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')";
+                // }
+                // console.log(app);
+                // })
+                
         </script>
         @stack('scripts')
     </body>

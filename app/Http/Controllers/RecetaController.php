@@ -29,10 +29,12 @@ class RecetaController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        // $recipes = Auth::user()->recipes;
 
-        $recipes = Auth::user()->recipes;
+        $recipes = Receta::where('user_id', $user->id)->paginate(10);
 
-        return view('recetas.index', compact('recipes'));
+        return view('recetas.index', compact('recipes', 'user'));
     }
 
     /**
@@ -59,8 +61,8 @@ class RecetaController extends Controller
         $data = request()->validate([
             'title' => 'required|min:6',
             'category_id' => 'required',
-            'making' => 'required',
-            'ingredients' => 'required',
+            'making' => 'required|min:20',
+            'ingredients' => 'required|min:20',
             'image' => 'required|image',
         ]);
 
@@ -97,12 +99,16 @@ class RecetaController extends Controller
      */
     public function show($id)
     {
-
         // return Excel::download(new UsersExport, 'users.xlsx');
 
-        $recipe = Receta::findOrFail($id);
 
-        return view('recetas.show', compact('recipe'));
+        // Obetener si el usuario le dio me gusta
+        
+        $recipe = Receta::findOrFail($id);
+        $like = (auth()->user()) ? auth()->user()->meGusta->contains($recipe->id) : false;
+        $countLikes = $recipe->likes->count();
+
+        return view('recetas.show', compact('recipe', 'like', 'countLikes'));
     }
 
     /**
@@ -111,11 +117,13 @@ class RecetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Receta $recetum)
     {
-        $recipe = Receta::findOrFail($id);
-        $categories = CategoriaReceta::all();
+        $this->authorize('view', $recetum);
 
+        $categories = CategoriaReceta::all();
+        $recipe = $recetum;
+        
         return view('recetas.edit', compact('recipe', 'categories'));
     }
 
@@ -156,7 +164,7 @@ class RecetaController extends Controller
 
         $recipe->save();
 
-        return redirect()->action('RecetaController@index')->with('ok-update', 'true');
+        return redirect()->action('RecetaController@index')->with('ok', 'true:update:recipe');
     }
 
     /**
@@ -170,5 +178,14 @@ class RecetaController extends Controller
         $recipe = Receta::findOrFail($id);
         $this->authorize('delete', $recipe);
         $recipe->delete();
+    }
+
+    public function search(Request $request)
+    {
+       $query = $request->search;
+       $recipes = Receta::where('title', 'like', '%' . $query . '%')->paginate(6);
+
+       return view('ui.search', compact('recipes'));
+
     }
 }
