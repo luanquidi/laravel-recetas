@@ -79,12 +79,12 @@
             window.addEventListener('resize', () => {
                 const heroParents = document.getElementById('hero-items');
                 if(window.innerWidth < 768 && heroParents.children.length == 2){
-                    const heroParent = document.getElementById('hero-items');
-                    heroParent.removeChild(heroParent.children[0]);
+                    // const heroParent = document.getElementById('hero-items');
+                    // heroParent.removeChild(heroParent.children[0]);
                 }else{
                     const heroParent = document.getElementById('hero-items');
 
-                    if(heroParent.children.length == 1){
+                    if(heroParent.children.length == 1 && window.innerWidth > 768){
                         const div = document.createElement('div');
                         div.classList.add('col-md-8');
                         heroParent.insertBefore(div, heroParent.children[0]);
