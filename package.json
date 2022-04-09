@@ -26,7 +26,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",
         "antd": "^4.3.4",
-        "moment": "^2.27.0",
+        "moment": "^2.29.2",
         "owl.carousel": "^2.3.4",
         "sweetalert2": "^9.15.2"
     }
